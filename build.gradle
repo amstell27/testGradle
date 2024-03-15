@@ -1,0 +1,28 @@
+plugins {
+    id "java"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:${junit5Version}",
+            "io.qameta.allure:allure-junit5:${allureJunit5Version}"
+    )
+}
+
+subprojects {
+    apply plugin: "java"
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        testImplementation("org.junit.jupiter:junit-jupiter:${junit5Version}",
+                "io.qameta.allure:allure-junit5:${allureJunit5Version}"
+        )
+    }
+}

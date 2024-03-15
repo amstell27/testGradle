@@ -1,0 +1,24 @@
+dependencies {
+    testImplementation (
+            "org.testcontainers:selenium:${seleniumTestContainersVersion}",
+            "com.codeborne:selenide:${selenideVersion}",
+            "io.qameta.allure:allure-selenide:${allureJunit5Version}",
+            project(":api-tests")
+    )
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+}
+
+task smoke (type: Test) {
+    useJUnitPlatform {
+        includeTags 'smoke'
+    }
+}
+
+task uiTests(type: Test) {
+    testClassesDirs = project(':ui-tests').sourceSets.test.output.classesDirs
+    classpath = project(':ui-tests').sourceSets.test.runtimeClasspath
+}

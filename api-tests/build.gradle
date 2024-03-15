@@ -1,0 +1,22 @@
+dependencies {
+    testImplementation ("io.rest-assured:rest-assured:${restAssuredVersion}",
+            "io.qameta.allure:allure-rest-assured:${allureJunit5Version}",
+            "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}",
+    )
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+}
+
+task smoke (type: Test) {
+    useJUnitPlatform {
+        includeTags 'smoke'
+    }
+}
+
+task apiTests(type: Test) {
+    testClassesDirs = project(':api-tests').sourceSets.test.output.classesDirs
+    classpath = project(':api-tests').sourceSets.test.runtimeClasspath
+}
